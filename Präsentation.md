@@ -19,23 +19,44 @@ Viel Duplizierung von gleichen Markup-Blöcken in mehreren HTML-Dateien.
 Abhilfe durch Technologien wie SSI… oder der in den nächsten Prototypen zu erwartenden dynamischen Seitengenerierung mittels einer vollwertigen Programmiersprache.
 
 ## Webserver
-- Port ändern :
-```Listen 1338```
-- Ordner bereitstellen für den Webserver
-```
-Alias "/toymodels" "C:\Users\Schoggoladentieger\Source\GitHub\toymodels\htdocs" 
-<Directory "C:\Users\Schoggoladentieger\Source\GitHub\toymodels">
+- Apache
+	- Port ändern :
+	```Listen 1338```
+	- Ordner bereitstellen für den Webserver
 
-	Options Indexes
-	#
-    # AllowOverride controls what directives may be placed in .htaccess files.
-    # It can be "All", "None", or any combination of the keywords:
-    #   AllowOverride FileInfo AuthConfig Limit
-    #
-	AllowOverride All
-	#
-    # Controls who can get stuff from this server.
-    #
-	Require all granted
-</Directory>```
 
+	```
+	Alias "/toymodels" "C:\Users\Schoggoladentieger\Source\GitHub\toymodels\htdocs" 
+	<Directory "C:\Users\Schoggoladentieger\Source\GitHub\toymodels">
+
+		Options Indexes
+		#
+		# AllowOverride controls what directives may be placed in .htaccess files.
+		# It can be "All", "None", or any combination of the keywords:
+		#   AllowOverride FileInfo AuthConfig Limit
+		#
+		AllowOverride All
+		#
+		# Controls who can get stuff from this server.
+		#
+		Require all granted
+	</Directory>```
+
+- Nginx
+	was geändert wurde
+	```
+	server {
+        listen       4242;
+        server_name  localhost;
+
+        location / {
+            root   html;
+            index  index.html index.htm;
+        }
+		
+		location /toymodels {
+            alias   c:/Users/Schoggoladentieger/Source/GitHub/toymodels/htdocs;
+        }
+		
+		...
+	```
